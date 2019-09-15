@@ -6,7 +6,6 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.autoconfigure.jdbc.DataSourceAutoConfiguration;
 
 @SpringBootApplication()
-@MapperScan("com.example.monitor.dao")
 public class MMonitorApplication {
 
 	public static void main(String[] args) {

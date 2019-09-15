@@ -1,5 +1,6 @@
-package com.example.monitor.domain;
+package com.example.monitor.common;
 
+import com.baomidou.mybatisplus.core.metadata.IPage;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
@@ -11,18 +12,26 @@ import java.util.List;
 @EqualsAndHashCode
 public class PaginationVo<T> {
     //当前页码
-    private int currentPage;
+    private long currentPage;
     //总页数
-    private int totalPage;
+    private long totalPage;
     //总条目
-    private int totalCount;
+    private long totalCount;
     //单页条目
-    private int pageSize;
+    private long pageSize;
 
-    private List<T> data;
+    private List<T> records;
+
+    public PaginationVo(IPage<T> page){
+        this.currentPage = page.getCurrent();
+        this.totalPage = page.getPages();
+        this.totalCount = page.getTotal();
+        this.pageSize = page.getSize();
+        this.records = page.getRecords();
+    }
 
     public PaginationVo(List<T> data,int pageSize,int currentPage,int totalCount){
-        this.data = data;
+        this.records = data;
         this.pageSize = pageSize;
         this.currentPage = currentPage;
         this.totalCount = totalCount;

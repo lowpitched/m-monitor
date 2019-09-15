@@ -1,6 +1,7 @@
-# DataSource Config
+
 server:
     port: 8089
+# DataSource Config
 spring:
     datasource:
         driver-class-name: com.mysql.cj.jdbc.Driver
@@ -9,6 +10,14 @@ spring:
         url: jdbc:mysql://localhost:3306/world?useUnicode=true&useSSL=true&serverTimezone=UTC
         username: root
         password: root
+
+#mybatis-plus配置
+mybatis-plus:
+    # 支持统配符 * 或者 ; 分割
+    typeEnumsPackage: com.example.monitor.inum
+    db-config:
+        logic-delete-value: 1 # 逻辑已删除值(默认为 1)
+        logic-not-delete-value: 0 # 逻辑未删除值(默认为 0)
 
 # Logger Config
 logging:
