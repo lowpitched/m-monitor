@@ -22,26 +22,4 @@ public class CommonServiceImpl<M extends BaseMapper<T>, T> extends ServiceImpl<M
         return bean;
     }
 
-    public boolean batchDelete(String ids) {
-        Assert.notNull(ids,"ID不能为空");
-
-        try {
-            Class<T> clazz = (Class<T>) ((ParameterizedType) this.getClass().getGenericSuperclass()).getActualTypeArguments()[1];
-            String[] ida = ids.split(",");
-            List<T> updateList = new ArrayList<>(ida.length);
-            for (String id : ida) {
-                T t = clazz.newInstance();
-                BasePojo basePojo = ((BasePojo) t);
-                basePojo.setId(Long.parseLong(id));
-                basePojo.setDeleted(DeletedEnum.DELETED.getCode());
-                basePojo.setModifyTime(new Date());
-                updateList.add(t);
-            }
-            return this.updateBatchById(updateList);
-        }catch (Exception e){
-            throw new RuntimeException("批量删除失败",e);
-        }
-    }
-
-
 }
