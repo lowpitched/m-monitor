@@ -1,21 +1,23 @@
 package com.example.monitor.controller;
 
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import com.alibaba.fastjson.JSON;
+import com.example.monitor.common.BasePojo;
+import com.example.monitor.common.CommonResult;
+import com.example.monitor.common.PaginationVo;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
 @RestController
-@RequestMapping("/api/helloWorld")
+@RequestMapping("/api/person")
 public class HelleWorldController {
 
-    @GetMapping("/hello")
-    public List<Person> hello(String name){
+    @GetMapping("/list")
+    public PaginationVo<Person> person(String name){
         List<Person> result = new ArrayList<>();
-        for(int i=0;i<100;i++){
+        for(int i=0;i<10;i++){
             Person p = new Person();
             p.setId(i+"");
             p.setName("zhangsan"+i);
@@ -23,19 +25,22 @@ public class HelleWorldController {
             p.setDate(new Date());
             result.add(p);
         }
+        PaginationVo page = new PaginationVo(result,10,1,100);
         System.out.println("11111111111111111");
-        return result;
+        return page;
     }
 
-    class Person {
+    @PutMapping("/edit")
+    public CommonResult edit(Person person) {
+        System.out.println(JSON.toJSONString(person));
+        return new CommonResult();
+    }
+
+    public static class Person extends BasePojo {
         private String id;
         private String name;
         private int age;
         private Date date;
-
-        public String getId() {
-            return id;
-        }
 
         public void setId(String id) {
             this.id = id;
